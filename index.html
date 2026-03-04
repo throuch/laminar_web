@@ -132,6 +132,7 @@
           padding: 92px 0 60px;
           text-align: center;
           position: relative;
+          z-index:2;
         }
 
         .logo-wrap{
@@ -141,11 +142,13 @@
           margin-bottom: 26px;
         }
         .hero-logo{
-          width:720px;
-          max-width:90%;
-          height:auto;
-          animation:float 7s ease-in-out infinite;
-          filter: drop-shadow(0 0 30px rgba(90,170,255,0.25));
+            width:720px;
+            max-width:90%;
+            opacity:0.95;
+
+            filter:
+            drop-shadow(0 0 20px rgba(80,160,255,0.4))
+            drop-shadow(0 0 50px rgba(80,160,255,0.3));
         }
 
         @keyframes float{
@@ -420,7 +423,7 @@
 
         <div class="logo-halo"></div>
 
-        <img src="logo-transparent.png" class="hero-logo">
+        <img src="logo-transparent.png" class="hero-logo" alt="logo">
 
         <h1 class="reveal">Engineering the flow of data</h1>
         <p class="subtitle reveal">
