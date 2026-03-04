@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Laminar Dataflow</title>
+
+<style>
+
+body{
+margin:0;
+font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+background:#0a0d12;
+color:#e8edf2;
+line-height:1.6;
+}
+
+.hero-logo{
+width:420px;
+max-width:90%;
+margin-bottom:40px;
+animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float{
+0%{ transform: translateY(0px);}
+50%{ transform: translateY(-12px);}
+100%{ transform: translateY(0px);}
+}
+
+#flow{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+z-index:-2;
+opacity:0.35;
+}
+
+.container{
+max-width:1100px;
+margin:auto;
+padding:0 24px;
+}
+
+header{
+padding:80px 0;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.logo{
+font-weight:600;
+font-size:20px;
+letter-spacing:1px;
+}
+
+.hero{
+padding:120px 0;
+text-align:center;
+}
+
+.hero h1{
+font-size:56px;
+font-weight:600;
+letter-spacing:-1px;
+}
+
+.hero p{
+margin-top:20px;
+font-size:22px;
+color:#9aa4af;
+}
+
+.cta{
+margin-top:40px;
+}
+
+.button{
+background: linear-gradient(90deg,#2f6fff,#4fd1ff);
+color:white;
+}
+
+.section{
+padding:100px 0;
+}
+
+.section h2{
+font-size:34px;
+margin-bottom:40px;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+gap:40px;
+}
+
+.card{
+background:linear-gradient(145deg,#11151c,#0f1319);
+border:1px solid rgba(100,150,255,0.15);
+}
+
+.card h3{
+margin-top:0;
+font-size:20px;
+}
+
+.about{
+max-width:750px;
+font-size:18px;
+color:#a3adb8;
+}
+
+footer{
+padding:80px 0;
+text-align:center;
+color:#7a8593;
+}
+
+.gradient{
+position:absolute;
+width:900px;
+height:900px;
+background: radial-gradient(circle, rgba(66,140,255,0.15) 0%, rgba(10,13,18,0) 70%);
+top:-200px;
+left:50%;
+transform:translateX(-50%);
+z-index:-1;
+}
+
+</style>
+</head>
+
+<body>
+<canvas id="flow"></canvas>
+
+<div class="gradient"></div>
+
+<header class="container">
+
+<div class="logo">
+Laminar Dataflow
+</div>
+
+</header>
+
+
+<section class="hero container">
+
+    <img src="logo.png" class="hero-logo">
+
+    <h1>
+        Engineering the flow of data
+    </h1>
+
+    <p>
+        Premium data engineering and AI infrastructure<br>
+        for modern distributed systems.
+    </p>
+
+    <div class="cta">
+        <a class="button" href="mailto:laminar.dataflow@gmail.com">Contact</a>
+    </div>
+
+</section>
+
+<section class="section container">
+
+<h2>Capabilities</h2>
+
+<div class="grid">
+
+<div class="card">
+<h3>Data Engineering</h3>
+<p>
+Design and optimization of scalable data platforms,
+lakehouse pipelines and high-volume distributed processing.
+</p>
+</div>
+
+<div class="card">
+<h3>AI Infrastructure</h3>
+<p>
+Production-grade ML and AI pipelines designed for reliability,
+observability and large-scale deployment.
+</p>
+</div>
+
+<div class="card">
+<h3>Cloud Architecture</h3>
+<p>
+Cloud-native systems across modern distributed environments
+optimized for performance and resilience.
+</p>
+</div>
+
+<div class="card">
+<h3>Streaming Systems</h3>
+<p>
+Real-time data processing using event streaming,
+stateful pipelines and distributed computation.
+</p>
+</div>
+
+</div>
+
+</section>
+
+
+<section class="section container">
+
+<h2>About</h2>
+
+<p class="about">
+Laminar Dataflow builds high-performance data systems at the
+intersection of data engineering, cloud computing and artificial intelligence.
+We specialize in distributed architectures, streaming pipelines and
+scalable AI infrastructure for organizations operating at scale.
+</p>
+
+</section>
+
+
+<section class="section container">
+
+<h2>Contact</h2>
+
+<p class="about">
+laminar.dataflow@gmail.com
+</p>
+
+</section>
+
+
+<footer class="container">
+
+Laminar Dataflow © 2026
+
+</footer>
+
+<script>
+
+    const canvas = document.getElementById("flow");
+    const ctx = canvas.getContext("2d");
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    let particles = [];
+
+    for(let i=0;i<80;i++){
+    particles.push({
+    x:Math.random()*canvas.width,
+    y:Math.random()*canvas.height,
+    speed:0.3 + Math.random()*0.6,
+    size:1+Math.random()*2
+    })
+    }
+
+    function animate(){
+
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+
+    ctx.fillStyle="rgba(80,160,255,0.8)";
+
+    particles.forEach(p=>{
+
+    p.x += p.speed;
+
+    if(p.x > canvas.width){
+    p.x=0;
+    p.y=Math.random()*canvas.height;
+    }
+
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
+    ctx.fill();
+
+    });
+
+    requestAnimationFrame(animate);
+
+    }
+
+    animate();
+
+</script>
+</body>
+</html>
