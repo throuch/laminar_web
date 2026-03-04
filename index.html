@@ -63,6 +63,20 @@
             filter: blur(40px);
             z-index:-1;
         }
+        .logo-halo{
+          position:absolute;
+          left:50%;
+          top:120px;
+          transform:translateX(-50%);
+          width:520px;
+          height:280px;
+          background: radial-gradient(circle,
+              rgba(90,170,255,0.6) 0%,
+              rgba(90,170,255,0.25) 40%,
+              transparent 70%);
+          filter: blur(70px);
+          z-index:-1;
+        }
         .glow.g1{
           left:-280px; top:-240px;
           background: radial-gradient(circle at 40% 40%, var(--glow1), rgba(0,0,0,0) 65%);
@@ -117,6 +131,7 @@
         .hero{
           padding: 92px 0 60px;
           text-align: center;
+          position: relative;
         }
 
         .logo-wrap{
@@ -126,18 +141,21 @@
           margin-bottom: 26px;
         }
         .hero-logo{
+          width:720px;
+          max-width:90%;
+          height:auto;
+          animation:float 7s ease-in-out infinite;
+          filter: drop-shadow(0 0 30px rgba(90,170,255,0.25));
+        }
 
-          width: 720px;
-          max-width: min(92vw, 760px);
-          height: auto;
-          filter: drop-shadow(0 18px 28px rgba(0,0,0,0.45)) drop-shadow(0 0 28px rgba(79,209,255,0.16));
-          animation: floaty 7s ease-in-out infinite;
-          transform-origin: center;
+        @keyframes float{
+
+            0%{transform:translateY(0px)}
+            50%{transform:translateY(-14px)}
+            100%{transform:translateY(0px)}
+
         }
-        @keyframes floaty{
-          0%,100%{ transform: translateY(0px) }
-          50%{ transform: translateY(-12px) }
-        }
+
 
         .kicker{
           display:inline-flex;
@@ -400,7 +418,7 @@
 <main>
     <section class="hero container">
 
-        <div class="logo-glow"></div>
+        <div class="logo-halo"></div>
 
         <img src="logo-transparent.png" class="hero-logo">
 
@@ -430,7 +448,6 @@
             </div>
         </div>
     </section>
-
     <section id="capabilities" class="section container">
         <h2 class="reveal">Capabilities</h2>
         <p class="lead reveal">
@@ -515,130 +532,94 @@
 </footer>
 
 <script>
-    /* ------------------------------
-       Premium animated "flow field"
-       - subtle, smooth, tech feel
-       - lines + particles follow a vector field
-    -------------------------------- */
 
-    const canvas = document.getElementById('flow-canvas');
-    const ctx = canvas.getContext('2d', { alpha: true });
+    const canvas = document.getElementById("flow-canvas");
+    const ctx = canvas.getContext("2d");
 
-    let w, h, dpr;
-    function resize(){
-      dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
-      w = canvas.width = Math.floor(window.innerWidth * dpr);
-      h = canvas.height = Math.floor(window.innerHeight * dpr);
-      canvas.style.width = window.innerWidth + 'px';
-      canvas.style.height = window.innerHeight + 'px';
-      ctx.setTransform(1,0,0,1,0,0);
-      ctx.scale(dpr, dpr);
-    }
-    window.addEventListener('resize', resize);
-    resize();
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 
-    // Deterministic-ish noise (fast)
-    function hash(n){ n = (n<<13) ^ n; return (1.0 - ((n*(n*n*15731+789221)+1376312589) & 0x7fffffff) / 1073741824.0); }
-    function noise2D(x,y){
-      const xi = Math.floor(x), yi = Math.floor(y);
-      const xf = x - xi, yf = y - yi;
-      const r00 = hash(xi + yi*57);
-      const r10 = hash(xi+1 + yi*57);
-      const r01 = hash(xi + (yi+1)*57);
-      const r11 = hash(xi+1 + (yi+1)*57);
-      const u = xf*xf*(3-2*xf);
-      const v = yf*yf*(3-2*yf);
-      const x1 = r00 + u*(r10-r00);
-      const x2 = r01 + u*(r11-r01);
-      return x1 + v*(x2-x1);
+    let particles = [];
+    const centerX = canvas.width/2;
+    const centerY = canvas.height/3;
+
+    for(let i=0;i<900;i++){
+    particles.push({
+    x:Math.random()*canvas.width,
+    y:Math.random()*canvas.height,
+    vx:0,
+    vy:0,
+    life:Math.random()*200
+    })
     }
 
-    function fieldAngle(x,y,t){
-      // Scale coordinates to control curl smoothness
-      const s = 0.0026;
-      const n = noise2D(x*s + t*0.00018, y*s + t*0.00012);
-      // Map noise to angle. Add slight swirl around center.
-      const cx = window.innerWidth*0.5, cy = window.innerHeight*0.35;
-      const dx = (x-cx), dy = (y-cy);
-      const swirl = Math.atan2(dy, dx) + Math.PI/2;
-      return (n * Math.PI * 2.0) * 0.85 + swirl * 0.15;
+    function field(x,y){
+
+    const dx = centerX-x;
+    const dy = centerY-y;
+
+    const dist = Math.sqrt(dx*dx+dy*dy)+0.001;
+
+    const flowX = -dy/dist;
+    const flowY = dx/dist;
+
+    const attractX = dx/dist*0.4;
+    const attractY = dy/dist*0.4;
+
+    return {
+    x:flowX*0.6+attractX,
+    y:flowY*0.6+attractY
     }
 
-    // Particles
-    const PCOUNT = 900;
-    const particles = [];
-    function resetParticle(p){
-      p.x = Math.random()*window.innerWidth;
-      p.y = Math.random()*window.innerHeight;
-      p.v = 0.6 + Math.random()*1.4;
-      p.life = 80 + Math.random()*140;
-      p.hue = 200 + Math.random()*35; // blue/cyan range
-      p.a = 0.10 + Math.random()*0.18;
-      p.w = 0.7 + Math.random()*1.2;
-    }
-    for(let i=0;i<PCOUNT;i++){
-      const p = {};
-      resetParticle(p);
-      particles.push(p);
     }
 
-    let t = 0;
-    let last = performance.now();
+    function animate(){
 
-    function step(now){
-      const dt = Math.min(32, now-last);
-      last = now;
-      t += dt;
+    ctx.fillStyle="rgba(7,10,16,0.12)";
+    ctx.fillRect(0,0,canvas.width,canvas.height);
 
-      // Fade with alpha to leave trails
-      ctx.fillStyle = 'rgba(7,10,16,0.10)';
-      ctx.fillRect(0,0,window.innerWidth, window.innerHeight);
+    particles.forEach(p=>{
 
-      // Draw particles following the field
-      for(const p of particles){
-        const ax = fieldAngle(p.x, p.y, t);
+    let f=field(p.x,p.y);
 
-        const vx = Math.cos(ax) * p.v;
-        const vy = Math.sin(ax) * p.v;
+    p.vx += f.x*0.4;
+    p.vy += f.y*0.4;
 
-        const x2 = p.x + vx;
-        const y2 = p.y + vy;
+    p.vx*=0.96;
+    p.vy*=0.96;
 
-        // Stroke style: blue/cyan glow
-        ctx.beginPath();
-        ctx.moveTo(p.x, p.y);
-        ctx.lineTo(x2, y2);
+    let nx=p.x+p.vx;
+    let ny=p.y+p.vy;
 
-        // Use gradient along stroke for premium look
-        const g = ctx.createLinearGradient(p.x, p.y, x2, y2);
-        g.addColorStop(0, `hsla(${p.hue}, 90%, 65%, ${p.a})`);
-        g.addColorStop(1, `hsla(${p.hue+12}, 95%, 60%, ${Math.max(0.02, p.a*0.7)})`);
-        ctx.strokeStyle = g;
-        ctx.lineWidth = p.w;
-        ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(p.x,p.y);
+    ctx.lineTo(nx,ny);
 
-        p.x = x2;
-        p.y = y2;
-        p.life -= 1;
+    ctx.strokeStyle="rgba(90,170,255,0.35)";
+    ctx.lineWidth=1;
+    ctx.stroke();
 
-        // Wrap / reset
-        if(p.x < -20 || p.x > window.innerWidth+20 || p.y < -20 || p.y > window.innerHeight+20 || p.life <= 0){
-          resetParticle(p);
-        }
-      }
+    p.x=nx;
+    p.y=ny;
 
-      requestAnimationFrame(step);
+    p.life--;
+
+    if(p.life<0||p.x<0||p.x>canvas.width||p.y<0||p.y>canvas.height){
+    p.x=Math.random()*canvas.width;
+    p.y=Math.random()*canvas.height;
+    p.vx=0;
+    p.vy=0;
+    p.life=200;
     }
-    requestAnimationFrame(step);
 
-    /* Reveal on scroll */
-    const obs = new IntersectionObserver((entries)=>{
-      for(const e of entries){
-        if(e.isIntersecting) e.target.classList.add('show');
-      }
-    },{ threshold: 0.12 });
+    })
 
-    document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+    requestAnimationFrame(animate)
+
+    }
+
+    animate()
+
 </script>
 </body>
 </html>
