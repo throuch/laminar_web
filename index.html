@@ -284,18 +284,18 @@
 
     function animate(){
 
-    ctx.fillStyle="rgba(7,10,16,0.12)";
+    ctx.fillStyle="rgba(7,10,16,0.18)";
     ctx.fillRect(0,0,canvas.width,canvas.height);
 
     particles.forEach(p=>{
 
     let f=field(p.x,p.y);
 
-    p.vx+=f.x*0.4;
-    p.vy+=f.y*0.4;
+    p.vx += f.x*0.08;
+    p.vy += f.y*0.08;
 
-    p.vx*=0.96;
-    p.vy*=0.96;
+    p.vx*=0.92;
+    p.vy*=0.92;
 
     let nx=p.x+p.vx;
     let ny=p.y+p.vy;
