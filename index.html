@@ -139,6 +139,78 @@
         text-decoration:none;
         }
 
+        .logos-section{
+          padding-top: 12px;
+          padding-bottom: 40px;
+          overflow: hidden;
+        }
+
+        .logos-kicker{
+          margin: 0 0 18px;
+          font-size: 13px;
+          letter-spacing: 0.18em;
+          text-transform: uppercase;
+          color: rgba(167,178,193,0.72);
+        }
+
+        .logos-marquee{
+          position: relative;
+          overflow: hidden;
+          mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+          -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+        }
+
+        .logos-track{
+          display: flex;
+          align-items: center;
+          gap: 56px;
+          width: max-content;
+          animation: logos-scroll 42s linear infinite;
+        }
+
+        .logos-track img{
+          height: 34px;
+          width: auto;
+          max-width: 160px;
+          object-fit: contain;
+          opacity: 0.68;
+          filter:
+            grayscale(1)
+            brightness(1.9)
+            contrast(1.1);
+          transition: opacity 0.25s ease, transform 0.25s ease, filter 0.25s ease;
+        }
+
+        .logos-track img:hover{
+          opacity: 0.95;
+          transform: translateY(-1px);
+          filter:
+            grayscale(1)
+            brightness(2.15)
+            contrast(0.92)
+            drop-shadow(0 0 18px rgba(79,209,255,0.12));
+        }
+
+        .logos-marquee:hover .logos-track{
+          animation-play-state: paused;
+        }
+
+        @keyframes logos-scroll{
+          from { transform: translateX(0); }
+          to   { transform: translateX(-50%); }
+        }
+
+        @media (max-width: 860px){
+          .logos-track{
+            gap: 40px;
+            animation-duration: 34s;
+          }
+
+          .logos-track img{
+            height: 28px;
+            max-width: 130px;
+          }
+        }
     </style>
 </head>
 
@@ -162,7 +234,40 @@
         </p>
 
     </section>
+    <section class="section container logos-section" id="worked-with">
+        <p class="logos-kicker">Worked with</p>
 
+        <div class="logos-marquee">
+            <div class="logos-track">
+                <img src="assets/logos/acc.svg" alt="ACC Automotive Cells Company">
+                <img src="assets/logos/amadeus.svg" alt="Amadeus">
+                <img src="assets/logos/r-groupe-bpce-2lignes-bureautique.png" alt="BPCE">
+                <img src="assets/logos/altice_better.png" alt="Altice">
+                <img src="assets/logos/mycom-osi3.png" alt="Mycom">
+                <img src="assets/logos/Air France SkyTeam site.png" alt="Air France">
+                <img src="assets/logos/mediametrie.png" alt="Médiamétrie">
+                <img src="assets/logos/orange_blanc.png" alt="Orange">
+                <img src="assets/logos/389-3899863_we-work-for-aigle-azur-airbus-a330.png" alt="Infoterra">
+<!--                <img src="assets/logos/visteon.svg" alt="Visteon">-->
+<!--                <img src="assets/logos/siemens.svg" alt="Siemens">-->
+<!--                <img src="assets/logos/sagem.svg" alt="Sagem">-->
+
+<!--                &lt;!&ndash; duplicate for seamless loop &ndash;&gt;-->
+<!--                <img src="assets/logos/acc.svg" alt="" aria-hidden="true">-->
+<!--                <img src="assets/logos/amadeus.svg" alt="" aria-hidden="true">-->
+<!--                <img src="assets/logos/bpce.svg" alt="" aria-hidden="true">-->
+<!--                <img src="assets/logos/altice.svg" alt="" aria-hidden="true">-->
+<!--                <img src="assets/logos/mycom.svg" alt="" aria-hidden="true">-->
+<!--                <img src="assets/logos/air-france.svg" alt="" aria-hidden="true">-->
+<!--                <img src="assets/logos/mediametrie.svg" alt="" aria-hidden="true">-->
+<!--                <img src="assets/logos/orange.svg" alt="" aria-hidden="true">-->
+<!--                <img src="assets/logos/infoterra.svg" alt="" aria-hidden="true">-->
+<!--                <img src="assets/logos/visteon.svg" alt="" aria-hidden="true">-->
+<!--                <img src="assets/logos/siemens.svg" alt="" aria-hidden="true">-->
+<!--                <img src="assets/logos/sagem.svg" alt="" aria-hidden="true">-->
+            </div>
+        </div>
+    </section>
     <section class="section container">
 
         <h2>Capabilities</h2>
