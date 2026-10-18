@@ -210,6 +210,86 @@
           to   { transform: translateX(-50%); }
         }
 
+        /* Founder */
+
+        .founder{
+        display:grid;
+        grid-template-columns:1.4fr 1fr;
+        gap:22px;
+        align-items:start;
+        }
+
+        .founder p{
+        color:var(--muted);
+        line-height:1.65;
+        margin:0 0 14px;
+        }
+
+        .founder .role{
+        color:var(--txt);
+        font-weight:600;
+        margin-bottom:6px;
+        }
+
+        .founder h3{
+        margin:0 0 4px;
+        font-size:24px;
+        }
+
+        .founder h4{
+        margin:18px 0 10px;
+        font-size:13px;
+        letter-spacing:0.14em;
+        text-transform:uppercase;
+        color:rgba(167,178,193,0.72);
+        }
+
+        .founder h4:first-child{margin-top:0}
+
+        .chips{
+        display:flex;
+        flex-wrap:wrap;
+        gap:8px;
+        }
+
+        .chip{
+        font-size:14px;
+        padding:5px 12px;
+        border-radius:999px;
+        border:1px solid rgba(79,209,255,0.28);
+        background:rgba(47,111,255,0.08);
+        color:var(--txt);
+        }
+
+        .chip.soft{
+        border-color:rgba(150,190,255,0.15);
+        background:transparent;
+        color:var(--muted);
+        }
+
+        .profile-links{
+        display:flex;
+        flex-wrap:wrap;
+        gap:10px;
+        margin-top:20px;
+        }
+
+        .profile-links a{
+        padding:8px 16px;
+        border-radius:10px;
+        border:1px solid rgba(79,209,255,0.35);
+        font-size:15px;
+        transition:background 0.2s ease;
+        }
+
+        .profile-links a:hover{
+        background:rgba(79,209,255,0.1);
+        }
+
+        @media (max-width: 860px){
+          .founder{grid-template-columns:1fr}
+        }
+
         @media (max-width: 860px){
           .logos-track{
             gap: 40px;
@@ -330,6 +410,94 @@
             We specialize in distributed architectures, streaming pipelines and
             scalable AI infrastructure.
         </p>
+
+    </section>
+
+    <section class="section container" id="founder">
+
+        <h2>Founder</h2>
+
+        <div class="founder">
+
+            <div class="card">
+                <h3>Thomas Rouch</h3>
+                <p class="role">Data Engineer &amp; Architect &mdash; Spark, Scala, Databricks, Azure</p>
+
+                <p>
+                    20+ years in software engineering, 14 of them in data. I started
+                    in embedded and real-time systems in C/C++, which left me with a
+                    lasting taste for performance, memory and the cost of every
+                    millisecond.
+                </p>
+
+                <p>
+                    Today I design and build lakehouse platforms and large-scale
+                    Spark pipelines for airline, banking, telecom and industrial
+                    companies: incremental ingestion, Data Vault 2.0 and medallion
+                    modelling, performance tuning, and migrations of legacy stacks
+                    to Databricks or Snowflake.
+                </p>
+
+                <p>
+                    I usually join a team as a hands-on tech lead or expert, or run
+                    short audits of an existing platform. On my own time I explore
+                    neuroevolution: a GPU-accelerated genetic algorithm that trains
+                    a small neural network to land a Mars module on CodinGame.
+                </p>
+
+                <div class="profile-links">
+                    <a href="https://www.linkedin.com/in/thomas-rouch/" target="_blank" rel="noopener">LinkedIn</a>
+                    <a href="https://github.com/throuch" target="_blank" rel="noopener">GitHub</a>
+                    <a href="https://www.codingame.com/profile/7a5dccc6e2b870c4825dabfdeb6008b82634302" target="_blank" rel="noopener">CodinGame</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <h4>Core stack</h4>
+                <div class="chips">
+                    <span class="chip">Spark</span>
+                    <span class="chip">Scala</span>
+                    <span class="chip">Python</span>
+                    <span class="chip">Databricks</span>
+                    <span class="chip">Snowflake</span>
+                    <span class="chip">Azure</span>
+                    <span class="chip">Kafka</span>
+                    <span class="chip">SQL</span>
+                </div>
+
+                <h4>Also</h4>
+                <div class="chips">
+                    <span class="chip soft">Delta Lake</span>
+                    <span class="chip soft">Azure Data Factory</span>
+                    <span class="chip soft">dbt</span>
+                    <span class="chip soft">Airflow</span>
+                    <span class="chip soft">PostgreSQL</span>
+                    <span class="chip soft">HBase</span>
+                    <span class="chip soft">Java</span>
+                    <span class="chip soft">C/C++</span>
+                    <span class="chip soft">Terraform</span>
+                    <span class="chip soft">Docker</span>
+                    <span class="chip soft">OpenShift</span>
+                </div>
+
+                <h4>Know-how</h4>
+                <div class="chips">
+                    <span class="chip soft">Data Vault 2.0</span>
+                    <span class="chip soft">Medallion architecture</span>
+                    <span class="chip soft">Performance tuning</span>
+                    <span class="chip soft">Platform migration</span>
+                    <span class="chip soft">Architecture audit</span>
+                    <span class="chip soft">AI-assisted development</span>
+                </div>
+
+                <h4>Languages</h4>
+                <div class="chips">
+                    <span class="chip soft">French</span>
+                    <span class="chip soft">English</span>
+                </div>
+            </div>
+
+        </div>
 
     </section>
 
